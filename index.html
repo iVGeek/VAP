@@ -14,17 +14,13 @@
     color: #4a3c31;
     animation: bgShift 10s ease-in-out infinite alternate;
   }
-  @keyframes bgShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-  }
+  @keyframes bgShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
   a { color: #6a4e42; text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
+
+  .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+
   header {
     background: #4b2e2a;
     color: #ffffff;
@@ -35,15 +31,9 @@
     opacity: 0;
     animation: fadeIn 1s ease 0.3s forwards;
   }
-  header h1 {
-    font-weight: 700;
-    font-size: 2.5rem;
-    margin-bottom: 0.3rem;
-  }
-  header p {
-    font-style: italic;
-    color: #e0d7d1;
-  }
+  header h1 { font-weight: 700; font-size: 2.5rem; margin-bottom: 0.3rem; animation: slideInDown 0.8s ease 0.5s both; }
+  header p { font-style: italic; color: #e0d7d1; animation: slideInUp 0.8s ease 0.7s both; }
+
   section {
     background: rgba(255,255,255,0.9);
     padding: 1.5rem 2rem;
@@ -53,20 +43,22 @@
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease forwards;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
+  section:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
   section:nth-of-type(1) { animation-delay: 0.5s; }
   section:nth-of-type(2) { animation-delay: 0.7s; }
   section:nth-of-type(3) { animation-delay: 0.9s; }
   section:nth-of-type(4) { animation-delay: 1.1s; }
   section:nth-of-type(5) { animation-delay: 1.3s; }
-  h2 {
-    border-bottom: 2px solid #d7c3b0;
-    padding-bottom: 0.3rem;
-    margin-bottom: 1rem;
-    color: #6a4e42;
-  }
+
+  h2 { border-bottom: 2px solid #d7c3b0; padding-bottom: 0.3rem; margin-bottom: 1rem; color: #6a4e42; }
+
   ul { list-style-type: none; padding-left: 0; }
-  ul li { padding: 0.3rem 0; }
+  ul li { padding: 0.3rem 0; opacity: 0; transform: translateX(-20px); animation: fadeInLeft 0.6s ease forwards; }
+  section:nth-of-type(2) ul li { animation-delay: 0.8s; }
+  section:nth-of-type(2) ul li:nth-child(n+2) { animation-delay: calc(0.8s + 0.1s * (n - 1)); }
+
   .skills-list { display: flex; flex-wrap: wrap; gap: 10px; }
   .skill {
     background: #e8dcd1;
@@ -76,8 +68,17 @@
     font-size: 0.9rem;
     color: #5b4538;
     transition: transform 0.3s;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: popIn 0.6s ease forwards;
   }
-  .skill:hover { transform: scale(1.1); }
+  .skill:nth-child(1) { animation-delay: 1.0s; }
+  .skill:nth-child(2) { animation-delay: 1.1s; }
+  .skill:nth-child(3) { animation-delay: 1.2s; }
+  .skill:nth-child(4) { animation-delay: 1.3s; }
+  .skill:nth-child(5) { animation-delay: 1.4s; }
+  .skill:hover { transform: scale(1.2); }
+
   .contact-btn {
     display: inline-block;
     background: #6a4e42;
@@ -87,27 +88,22 @@
     font-weight: 600;
     margin-top: 1rem;
     transition: background 0.3s, transform 0.3s;
+    animation: bounceIn 0.8s ease 1.6s both;
   }
-  .contact-btn:hover {
-    background: #8c6c59;
-    transform: translateY(-2px);
-  }
-  footer {
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 0.9rem;
-    color: #7d6a5a;
-  }
-  @media (max-width: 600px) {
-    header h1 { font-size: 2rem; }
-    .skills-list { flex-direction: column; }
-  }
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-  @keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .contact-btn:hover { background: #8c6c59; transform: translateY(-2px); }
+
+  footer { text-align: center; padding: 1rem 0; font-size: 0.9rem; color: #7d6a5a; }
+
+  @media (max-width: 600px) { header h1 { font-size: 2rem; } .skills-list { flex-direction: column; } }
+
+  /* Animations */
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideInDown { from { opacity: 0; transform: translateY(-20px);} to { opacity: 1; transform: translateY(0);} }
+  @keyframes slideInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+  @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0);} }
+  @keyframes popIn { to { opacity: 1; transform: scale(1); } }
+  @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.5);} 60% { opacity: 1; transform: scale(1.2);} 100% { transform: scale(1);} }
 </style>
 </head>
 <body>
@@ -139,6 +135,9 @@
         <li>💼 Customer Support & CRM Management</li>
         <li>💸 Invoicing & Billing</li>
         <li>🛠️ Task Automation</li>
+        <li>🧾 Bookkeeping Support</li>
+        <li>🧠 AI Prompt Engineering for Productivity</li>
+        <li>🧰 Tech Tools & App Integrations</li>
       </ul>
     </section>
 
@@ -165,10 +164,10 @@
       </ul>
     </section>
 
-    <section>
+    <section data-section="contact">
       <h2>Get In Touch</h2>
       <p>Interested in elevating your productivity and growing your business?</p>
-      <a href="https://www.linkedin.com/in/esther-kagwaini-4793b8240/" target="_blank" class="contact-btn">Message me on LinkedIn</a>
+      <a id="contactBtn" href="https://www.linkedin.com/in/esther-kagwaini-4793b8240/" target="_blank" class="contact-btn">Message me on LinkedIn</a>
       <p>Or book a discovery call and grab free productivity guides available in the Featured Section on my LinkedIn.</p>
     </section>
   </div>
